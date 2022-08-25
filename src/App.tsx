@@ -1,7 +1,8 @@
 import React from 'react'
 import './style.css'
-import IMAGE from './react.png'
-import LOGO from './react.svg'
+import './app.scss'
+import IMAGE from './assets/react.png'
+import LOGO from './assets/react.svg'
 import ClickCounter from './ClickCounter'
 
 const App = () => {
