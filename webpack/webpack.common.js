@@ -7,6 +7,17 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        reactVendor: {
+          test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom)[\\/]/,
+          name: 'vendor-react',
+          chunks: 'all',
+        },
+      },
+    },
+  },
   module: {
     rules: [
       {
@@ -34,7 +45,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '..', './build'),
-    filename: 'bundle.js',
+    filename: '[contenthash].bundle.js',
+    clean: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -45,3 +57,28 @@ module.exports = {
     // }),
   ],
 }
+
+// optimization: {
+//   splitChunks: {
+//     chunks: 'all',
+//     minSize: 0,
+//     maxInitialRequests: 20,
+//     maxAsyncRequests: 20,
+//     cacheGroups: {
+//       vendors: {
+//         test: /[\\/]node_modules[\\/]/,
+//         name(module, chunks, cacheGroupKey) {
+//           const packageName = module.context.match(
+//             /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+//           )[1]
+//           return `${cacheGroupKey}.${packageName.replace('@', '')}`
+//         },
+//       },
+//       common: {
+//         minChunks: 2,
+//         priority: -10,
+//       },
+//     },
+//   },
+//   runtimeChunk: 'single',
+// },
